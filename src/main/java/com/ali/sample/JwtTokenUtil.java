@@ -3,6 +3,7 @@ package com.ali.sample;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;
 import java.util.Date;
+import java.util.Map;
 import java.util.function.Function;
 
 @Component
@@ -11,8 +12,9 @@ public class JwtTokenUtil {
     private static final long JWT_EXPIRATION_MS = 5 * 60 * 60 * 1000; // 1 hours
 
     // Generate token for user
-    public String generateToken(String username) {
+    public String createToken(Map<String, Object> claims, String username) {
         return Jwts.builder()
+                .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_MS))

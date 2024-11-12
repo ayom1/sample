@@ -14,6 +14,10 @@ public class UserRole {
     @Column(name = "role_id")
     private Long roleId;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false,insertable = false, updatable = false)
+    private Role role;
+
     public Long getId() {
         return id;
     }
@@ -36,5 +40,13 @@ public class UserRole {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

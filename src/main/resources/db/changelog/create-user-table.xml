@@ -53,4 +53,28 @@
 
         </createTable>
     </changeSet>
+    <changeSet id="3-add-admin-user" author="ali">
+        <insert tableName="user_sample">
+            <column name="username" value="admin" />
+            <column name="password" value="$2a$10$Hjh5MnpXtsVVDzDGhVwq7eNk8tYj2UVb.Xue9jb259Rmfz2c/Z0cy" />
+            <column name="email" value="admin@example.com" />
+        </insert>
+
+        <insert tableName="roles">
+            <column name="name" value="ROLE_USER" />
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="ROLE_ADMIN" />
+        </insert>
+
+        <insert tableName="user_sample_roles">
+            <column name="user_id" value="1" />
+            <column name="role_id" value="1" />
+        </insert>
+        <insert tableName="user_sample_roles">
+            <column name="user_id" value="1" />
+            <column name="role_id" value="2" />
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -34,7 +35,9 @@ public class UserService {
         this.userRoleRepository.save(userRole);
         return user;
     }
-
+    public List<User> getAllUsers(){
+        return this.userRepository.findAll();
+    }
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }

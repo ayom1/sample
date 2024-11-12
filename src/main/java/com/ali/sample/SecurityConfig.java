@@ -27,6 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()  // Allow preflight requests
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/transactions/user/**").authenticated()
+                .antMatchers("/api/admin/**").authenticated()
+
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
