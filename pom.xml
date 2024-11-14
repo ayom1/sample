@@ -74,6 +74,12 @@
 			<artifactId>liquibase-core</artifactId>
 			<version>4.23.0</version> <!-- Use latest version -->
 		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20230227</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
