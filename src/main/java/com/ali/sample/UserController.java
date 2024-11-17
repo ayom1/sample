@@ -36,6 +36,9 @@ public class UserController {
 
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private GoogleAuthService googleAuthService;
+
 
     @PostMapping("/register")
     public User register(@RequestBody User user) {
@@ -99,6 +102,36 @@ public class UserController {
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Invalid Facebook token");
+        }
+    }
+
+    @PostMapping("/google")
+    public ResponseEntity<?> googleLogin(@RequestBody Map<String, String> request) {
+        try {
+            String token = request.get("token");
+            var payload = googleAuthService.verifyToken(token);
+            String googleId = payload.getSubject();
+            String email = payload.getEmail();
+
+            // Process user login or registration logic
+            System.out.println("Google user ID: " + googleId);
+            System.out.println("Email: " + email);
+
+            // Implement your registration/login logic here
+            Optional<User> userOptional = this.registerService.findByUsername(googleId);
+            User user = null;
+            if(userOptional.isEmpty()){
+                user = new User();
+                user.setUsername(googleId);
+                user.setEmail(email);
+                user.setPassword("none");
+                user = this.registerService.registerUser(user);
+            }else{
+                user = userOptional.get();
+            }
+            return ResponseEntity.ok(this.createLoginToken(user.getUsername()));
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(Map.of("error", "Invalid token"));
         }
     }
 
